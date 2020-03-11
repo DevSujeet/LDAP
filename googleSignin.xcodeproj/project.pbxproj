@@ -17,7 +17,7 @@
 		BA53E0CB24075046002B1FC1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53E0CA24075046002B1FC1 /* Constants.swift */; };
 		BA6E3C272418BF4A008530BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BA6E3C262418BF4A008530BB /* README.md */; };
 		BA6E3C292418BF7E008530BB /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */; };
-		BA6E3C2E2418E7BC008530BB /* MicrosoftLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E3C2D2418E7BC008530BB /* MicrosoftLoginController.swift */; };
+		BA6E3C2E2418E7BC008530BB /* MicrosoftLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E3C2D2418E7BC008530BB /* MicrosoftLoginService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		BA53E0CA24075046002B1FC1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BA6E3C262418BF4A008530BB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
-		BA6E3C2D2418E7BC008530BB /* MicrosoftLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosoftLoginController.swift; sourceTree = "<group>"; };
+		BA6E3C2D2418E7BC008530BB /* MicrosoftLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosoftLoginService.swift; sourceTree = "<group>"; };
 		D31A58C0C03E98155F79D77C /* Pods_googleSignin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_googleSignin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +85,7 @@
 				BA53E0B724074FB9002B1FC1 /* SceneDelegate.swift */,
 				BA53E0B924074FB9002B1FC1 /* ViewController.swift */,
 				BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */,
-				BA6E3C2D2418E7BC008530BB /* MicrosoftLoginController.swift */,
+				BA6E3C2D2418E7BC008530BB /* MicrosoftLoginService.swift */,
 				BA53E0BB24074FB9002B1FC1 /* Main.storyboard */,
 				BA53E0BE24074FBA002B1FC1 /* Assets.xcassets */,
 				BA53E0C024074FBA002B1FC1 /* LaunchScreen.storyboard */,
@@ -261,7 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA6E3C2E2418E7BC008530BB /* MicrosoftLoginController.swift in Sources */,
+				BA6E3C2E2418E7BC008530BB /* MicrosoftLoginService.swift in Sources */,
 				BA6E3C292418BF7E008530BB /* DetailPageViewController.swift in Sources */,
 				BA53E0BA24074FB9002B1FC1 /* ViewController.swift in Sources */,
 				BA53E0B624074FB9002B1FC1 /* AppDelegate.swift in Sources */,

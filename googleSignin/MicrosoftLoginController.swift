@@ -9,11 +9,11 @@
 import Foundation
 import MSAL
 
-protocol MicrosoftLoginControllerDelegate {
-    func didAquireToken(token:String)
+protocol MicrosoftLoginServiceDelegate:class {
+    func didAquireToken(token:String, errror:Error?)
 }
 
-class MicrosoftLoginController {
+class MicrosoftLoginService {
     // Update the below to your client ID you received in the portal. The below is for running the demo only
     let kClientID = "66855f8a-60cd-445e-a9bb-8cd8eadbd3fa"
     let kGraphEndpoint = "https://graph.microsoft.com/"
@@ -26,8 +26,11 @@ class MicrosoftLoginController {
     var webViewParamaters : MSALWebviewParameters?
     
     var parentViewController:UIViewController!
+    weak var delegate:MicrosoftLoginServiceDelegate?
     
-    init(withParentViewController:UIViewController) {
+    init(withParentViewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
+        
+        self.delegate = delegate
         do {
             try self.initMSAL()
         } catch let error {
@@ -39,7 +42,7 @@ class MicrosoftLoginController {
 
 // MARK: Initialization
 
-extension MicrosoftLoginController {
+extension MicrosoftLoginService {
     
     /**
      
@@ -80,7 +83,7 @@ extension MicrosoftLoginController {
 
 // MARK: Acquiring and using token
 
-extension MicrosoftLoginController {
+extension MicrosoftLoginService {
     
     /**
      This will invoke the authorization flow.
@@ -226,7 +229,7 @@ extension MicrosoftLoginController {
 
 // MARK: Get account and removing cache
 
-extension MicrosoftLoginController {
+extension MicrosoftLoginService {
     func currentAccount() -> MSALAccount? {
         
         guard let applicationContext = self.applicationContext else { return nil }
@@ -282,7 +285,7 @@ extension MicrosoftLoginController {
 
 
 // MARK: UI Helpers
-extension MicrosoftLoginController {
+extension MicrosoftLoginService {
     
 //    func initUI() {
 //        // Add call Graph button
