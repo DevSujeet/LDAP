@@ -7,5 +7,5 @@ target 'googleSignin' do
 
   # Pods for googleSignin
 pod 'GoogleSignIn'
-
+pod 'MSAL'
 end

@@ -16,9 +16,13 @@ PODS:
   - GTMSessionFetcher/Core (1.3.1)
   - GTMSessionFetcher/Full (1.3.1):
     - GTMSessionFetcher/Core (= 1.3.1)
+  - MSAL (1.0.7):
+    - MSAL/app-lib (= 1.0.7)
+  - MSAL/app-lib (1.0.7)
 
 DEPENDENCIES:
   - GoogleSignIn
+  - MSAL
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -26,13 +30,15 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - MSAL
 
 SPEC CHECKSUMS:
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
+  MSAL: e4c1cbcf59e04073b427ce9fbfc0346b54abb62e
 
-PODFILE CHECKSUM: f2c23d4400091e4268dbc9f86878e42ba99fac62
+PODFILE CHECKSUM: 8b3fef3c0763802efa07e53b5440831e37cacbed
 
 COCOAPODS: 1.5.3

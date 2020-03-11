@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13A6640C6DD1DF52AB84E265F57B0C97"
+               BlueprintIdentifier = "7878FE180E7CF55DC64ACED1DC2A5782"
                BuildableName = "Pods_googleSignin.framework"
                BlueprintName = "Pods-googleSignin"
                ReferencedContainer = "container:Pods.xcodeproj">

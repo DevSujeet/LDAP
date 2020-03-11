@@ -66,14 +66,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
             \(email)
             """)
         
+        self.launchDetailController()
+    }
+    
+    private func launchDetailController() {
         //launch the detail
         guard let detailController = DetailPageViewController.instance() else {return}
         
-        
-         UIApplication.shared.windows.first?.rootViewController = detailController
-         UIApplication.shared.windows.first?.makeKeyAndVisible()
+        UIApplication.shared.windows.first?.rootViewController = detailController
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
-    
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
