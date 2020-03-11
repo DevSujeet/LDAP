@@ -15,6 +15,8 @@
 		BA53E0BF24074FBA002B1FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA53E0BE24074FBA002B1FC1 /* Assets.xcassets */; };
 		BA53E0C224074FBA002B1FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA53E0C024074FBA002B1FC1 /* LaunchScreen.storyboard */; };
 		BA53E0CB24075046002B1FC1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53E0CA24075046002B1FC1 /* Constants.swift */; };
+		BA6E3C272418BF4A008530BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BA6E3C262418BF4A008530BB /* README.md */; };
+		BA6E3C292418BF7E008530BB /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		BA53E0C124074FBA002B1FC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA53E0C324074FBA002B1FC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA53E0CA24075046002B1FC1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BA6E3C262418BF4A008530BB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
 		D31A58C0C03E98155F79D77C /* Pods_googleSignin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_googleSignin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +59,7 @@
 		BA53E0A924074FB9002B1FC1 = {
 			isa = PBXGroup;
 			children = (
+				BA6E3C262418BF4A008530BB /* README.md */,
 				BA53E0B424074FB9002B1FC1 /* googleSignin */,
 				BA53E0B324074FB9002B1FC1 /* Products */,
 				CA7A6FB883577D9C2CA26B09 /* Pods */,
@@ -77,6 +82,7 @@
 				BA53E0B524074FB9002B1FC1 /* AppDelegate.swift */,
 				BA53E0B724074FB9002B1FC1 /* SceneDelegate.swift */,
 				BA53E0B924074FB9002B1FC1 /* ViewController.swift */,
+				BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */,
 				BA53E0BB24074FB9002B1FC1 /* Main.storyboard */,
 				BA53E0BE24074FBA002B1FC1 /* Assets.xcassets */,
 				BA53E0C024074FBA002B1FC1 /* LaunchScreen.storyboard */,
@@ -165,6 +171,7 @@
 			files = (
 				BA53E0C224074FBA002B1FC1 /* LaunchScreen.storyboard in Resources */,
 				BA53E0BF24074FBA002B1FC1 /* Assets.xcassets in Resources */,
+				BA6E3C272418BF4A008530BB /* README.md in Resources */,
 				BA53E0BD24074FB9002B1FC1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6E3C292418BF7E008530BB /* DetailPageViewController.swift in Sources */,
 				BA53E0BA24074FB9002B1FC1 /* ViewController.swift in Sources */,
 				BA53E0B624074FB9002B1FC1 /* AppDelegate.swift in Sources */,
 				BA53E0B824074FB9002B1FC1 /* SceneDelegate.swift in Sources */,

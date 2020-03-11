@@ -30,6 +30,12 @@ class ViewController: UIViewController {
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
     }
 
+    
+    static func instance() -> ViewController? {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailController = mainStoryboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {return nil}
+        return detailController
+    }
 
 }
 
