@@ -14,15 +14,36 @@ import MSAL
    https://developers.google.com/identity/sign-in/ios/start-integrating
 */
 
-enum SignInMode {
-    case google
+enum SignInMode:String {
+    static let signInKey = "signInKey"
+    case google //default
     case microsoft
+    
+    static func getPersistentSignMode() -> SignInMode {
+        let userDefault =  UserDefaults.standard
+        guard let rawValue = userDefault.string(forKey: SignInMode.signInKey) else {
+            setPersistentSignMode(mode:.google)
+            return .google
+        }
+        guard let mode = SignInMode(rawValue: rawValue) else {
+            setPersistentSignMode(mode:.google)
+            return .google
+        }
+        
+        return mode
+    }
+    
+    static func setPersistentSignMode(mode:SignInMode) {
+        let rawValue = mode.rawValue
+        let userDefault =  UserDefaults.standard
+        userDefault.set(rawValue, forKey: SignInMode.signInKey)
+    }
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     
-    var signInMode:SignInMode?
+    var signInMode:SignInMode = .google
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,15 +54,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     }
     
     @available(iOS 9.0, *)
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-//
-//        return GIDSignIn.sharedInstance()?.handle(url) ?? true
-//
-//    }
-    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String)
+        let signInMode = SignInMode.getPersistentSignMode()
+        switch signInMode {
+        case .google:
+            return GIDSignIn.sharedInstance()?.handle(url) ?? true
+        case .microsoft:
+            return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String)
+        }
     }
     
     // MARK: UISceneSession Lifecycle

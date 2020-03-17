@@ -16,6 +16,9 @@ protocol MicrosoftLoginServiceDelegate:class {
 }
 
 class MicrosoftLoginService {
+    
+    
+    
     // Update the below to your client ID you received in the portal. The below is for running the demo only
     let kClientID = "1fd8f856-02c9-4ad0-b146-13c049b33df8"
     let kRedirectUri = "msauth.ai.cuddle.googleSignin://auth"
@@ -35,8 +38,19 @@ class MicrosoftLoginService {
     var parentViewController:UIViewController!
     weak var delegate:MicrosoftLoginServiceDelegate?
     
-    init(withParentController viewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
+    private init() {
         
+    }
+    
+    class var shared:MicrosoftLoginService {
+        struct singletonWrapper {
+            static let singleton = MicrosoftLoginService()
+        }
+        
+        return singletonWrapper.singleton
+    }
+    
+    func setUp(withParentController viewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
         self.delegate = delegate
         self.parentViewController = viewController
         do {
@@ -45,6 +59,18 @@ class MicrosoftLoginService {
             self.updateLogging(text: "Unable to create Application Context \(error)")
         }
     }
+    
+    
+//    init(withParentController viewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
+//        
+//        self.delegate = delegate
+//        self.parentViewController = viewController
+//        do {
+//            try self.initMSAL()
+//        } catch let error {
+//            self.updateLogging(text: "Unable to create Application Context \(error)")
+//        }
+//    }
 }
 
 

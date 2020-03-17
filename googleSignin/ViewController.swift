@@ -10,6 +10,8 @@ import UIKit
 import GoogleSignIn
 import MSAL
 
+
+/// See this as a loginViewController.
 class ViewController: UIViewController,MicrosoftLoginServiceDelegate {
     
     @IBOutlet weak var signInButton: GIDSignInButton! {
@@ -39,14 +41,18 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate {
     func setUpGoogleSigin() {
         GIDSignIn.sharedInstance()?.presentingViewController = self
                
-               // Automatically sign in the user.
+        // Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
     }
     
     //MARK:- MICROSOFT
     var micrsoftService:MicrosoftLoginService?
     func setUpMicrsoftSigin() {
-        micrsoftService = MicrosoftLoginService(withParentController:self,delegate:self)
+        //setup signin mode info
+        SignInMode.setPersistentSignMode(mode:.microsoft)
+        
+        micrsoftService = MicrosoftLoginService.shared
+        micrsoftService?.setUp(withParentController:self,delegate:self)
     }
     
     @IBAction func MicrosoftLoginAction(_ sender: Any) {

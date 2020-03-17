@@ -11,12 +11,21 @@ import GoogleSignIn
 
 
 /// Controller that will be displayed if the user is logged-in.
+/// page where logout functionality is present.
 class DetailPageViewController: UIViewController {
     
     @IBOutlet weak var googleSignOut: UIButton!
     
     @IBAction func googleSignOutAction(_ sender: UIButton) {
-        GIDSignIn.sharedInstance().signOut()
+        let signInMode = SignInMode.getPersistentSignMode()
+        switch signInMode {
+        case .google:
+            GIDSignIn.sharedInstance().signOut()
+        case .microsoft:
+            let micrsoftService = MicrosoftLoginService.shared
+            micrsoftService.signOut(sender)
+        }
+        
         
         //back to the login controller.
         guard let viewController = ViewController.instance() else {return}
