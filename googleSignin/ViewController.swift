@@ -42,10 +42,7 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
     
     private func launchDetailController() {
         //launch the detail
-        guard let detailController = DetailPageViewController.instance() else {return}
-        
-        UIApplication.shared.windows.first?.rootViewController = detailController
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        AppDelegate.getAppDelegate().launchDetailController()
     }
     
     //MARK:- Google
@@ -74,7 +71,7 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
         let email = user?.profile.email
         
         print("""
-            User detail = \(userId),
+            Google User detail = \(userId),
             \(idToken),
             \(fullName),
             \(givenName),
@@ -105,7 +102,7 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
             print("microsoft Error = \(loginError)")
         } else {
             //login successful
-            print("token = \(token)")
+            print("token = \(String(describing: token))")
             self.launchDetailController()
             
         }

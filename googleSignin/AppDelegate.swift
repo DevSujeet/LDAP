@@ -43,12 +43,39 @@ enum SignInMode:String {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    static func getAppDelegate() -> AppDelegate {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate
+    }
+    
     var signInMode:SignInMode = .google
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
 //        configure the GIDSignIn shared instance and set the sign-in delegate.
+        // this also ensures that if the user is signed-in--func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) is called which in turn launches te detail screen.
+        //be default no such mechanism for microsoft.
+        //this means even if the user is signed with microsoft, if he kills the app, the loginView will be launched
+        //rather than detailController
         GoogleSiginService.shared
+        
+        //Check if the user is signed via microsoft accout
+        guard let microSoftAccount = MicrosoftLoginService.shared.currentAccount() else {
+            //dont do any thing.
+            //let it load loginController
+            //or google will handle this
+            return true
+        }
+        
+        //lauch detail controller
+        /* NOTE:
+            To enable token caching:
+            Ensure your application is properly signed
+            Go to your Xcode Project Settings > Capabilities tab > Enable Keychain Sharing
+            Click + and enter a following Keychain Groups entry: 3.a For iOS, enter com.microsoft.adalcache 3.b For macOS enter com.microsoft.identity.universalstorage
+         */
+        self.launchDetailController()
         return true
     }
     
@@ -76,6 +103,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    //Public method
+    func launchDetailController() {
+        //launch the detail
+        guard let detailController = DetailPageViewController.instance() else {return}
+        
+        UIApplication.shared.windows.first?.rootViewController = detailController
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
         
 }

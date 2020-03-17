@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		2A90C9AA4F700772B06FC7DE /* Pods-googleSignin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.debug.xcconfig"; sourceTree = "<group>"; };
-		BA53E0B224074FB9002B1FC1 /* googleSignin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = googleSignin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA53E0B224074FB9002B1FC1 /* ThirdPartySignin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThirdPartySignin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA53E0B524074FB9002B1FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA53E0B724074FB9002B1FC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BA53E0B924074FB9002B1FC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +36,7 @@
 		BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
 		BA8C34E324207BC300074650 /* MicrosoftLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftLoginService.swift; sourceTree = "<group>"; };
 		BA8C34E72420AEBB00074650 /* GoogleSiginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSiginService.swift; sourceTree = "<group>"; };
+		BA8C34E92420D1F800074650 /* ThirdPartySignin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThirdPartySignin.entitlements; sourceTree = "<group>"; };
 		D31A58C0C03E98155F79D77C /* Pods_googleSignin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_googleSignin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +64,7 @@
 		BA53E0A924074FB9002B1FC1 = {
 			isa = PBXGroup;
 			children = (
+				BA8C34E92420D1F800074650 /* ThirdPartySignin.entitlements */,
 				BA6E3C262418BF4A008530BB /* README.md */,
 				BA53E0B424074FB9002B1FC1 /* googleSignin */,
 				BA53E0B324074FB9002B1FC1 /* Products */,
@@ -74,7 +76,7 @@
 		BA53E0B324074FB9002B1FC1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BA53E0B224074FB9002B1FC1 /* googleSignin.app */,
+				BA53E0B224074FB9002B1FC1 /* ThirdPartySignin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,9 +127,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BA53E0B124074FB9002B1FC1 /* googleSignin */ = {
+		BA53E0B124074FB9002B1FC1 /* ThirdPartySignin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BA53E0C624074FBA002B1FC1 /* Build configuration list for PBXNativeTarget "googleSignin" */;
+			buildConfigurationList = BA53E0C624074FBA002B1FC1 /* Build configuration list for PBXNativeTarget "ThirdPartySignin" */;
 			buildPhases = (
 				BC1A9A863684B193D302F399 /* [CP] Check Pods Manifest.lock */,
 				BA53E0AE24074FB9002B1FC1 /* Sources */,
@@ -140,9 +142,9 @@
 			);
 			dependencies = (
 			);
-			name = googleSignin;
+			name = ThirdPartySignin;
 			productName = googleSignin;
-			productReference = BA53E0B224074FB9002B1FC1 /* googleSignin.app */;
+			productReference = BA53E0B224074FB9002B1FC1 /* ThirdPartySignin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -160,7 +162,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BA53E0AD24074FB9002B1FC1 /* Build configuration list for PBXProject "googleSignin" */;
+			buildConfigurationList = BA53E0AD24074FB9002B1FC1 /* Build configuration list for PBXProject "ThirdPartySignin" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -173,7 +175,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BA53E0B124074FB9002B1FC1 /* googleSignin */,
+				BA53E0B124074FB9002B1FC1 /* ThirdPartySignin */,
 			);
 		};
 /* End PBXProject section */
@@ -423,6 +425,7 @@
 			baseConfigurationReference = 2A90C9AA4F700772B06FC7DE /* Pods-googleSignin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ThirdPartySignin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FX9836WZQL;
 				INFOPLIST_FILE = googleSignin/Info.plist;
@@ -442,6 +445,7 @@
 			baseConfigurationReference = DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ThirdPartySignin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FX9836WZQL;
 				INFOPLIST_FILE = googleSignin/Info.plist;
@@ -459,7 +463,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BA53E0AD24074FB9002B1FC1 /* Build configuration list for PBXProject "googleSignin" */ = {
+		BA53E0AD24074FB9002B1FC1 /* Build configuration list for PBXProject "ThirdPartySignin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA53E0C424074FBA002B1FC1 /* Debug */,
@@ -468,7 +472,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BA53E0C624074FBA002B1FC1 /* Build configuration list for PBXNativeTarget "googleSignin" */ = {
+		BA53E0C624074FBA002B1FC1 /* Build configuration list for PBXNativeTarget "ThirdPartySignin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA53E0C724074FBA002B1FC1 /* Debug */,
