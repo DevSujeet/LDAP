@@ -12,13 +12,21 @@ import MSAL
     https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-ios
  */
 protocol MicrosoftLoginServiceDelegate:class {
-    func didAquireToken(token:String, errror:Error?)
+    func didAquireToken(token:String?, errror:MicroSoftLoginError?)
+    func didGetUserDetail(user:Any?, error:MicroSoftLoginError?)
 }
 
-class MicrosoftLoginService {
-    
-    
-    
+enum MicroSoftLoginError:Error {
+    case couldNotAcquireToken
+    case noResultFound
+    case couldNotAcquireTokenSilently
+    //---error in gettting user detail
+    case couldNotDeserializeResult
+    case couldNotGetResult
+}
+
+final class MicrosoftLoginService {
+
     // Update the below to your client ID you received in the portal. The below is for running the demo only
     let kClientID = "1fd8f856-02c9-4ad0-b146-13c049b33df8"
     let kRedirectUri = "msauth.ai.cuddle.googleSignin://auth"
@@ -115,8 +123,7 @@ extension MicrosoftLoginService {
 }
 
 
-// MARK: Acquiring and using token
-
+//MARK:- Acquiring and using token
 extension MicrosoftLoginService {
     
     /**
@@ -145,13 +152,13 @@ extension MicrosoftLoginService {
         applicationContext.acquireToken(with: parameters) { (result, error) in
             
             if let error = error {
-                
+                self.delegate?.didAquireToken(token: nil, errror: .couldNotAcquireToken)
                 self.updateLogging(text: "Could not acquire token: \(error)")
                 return
             }
             
             guard let result = result else {
-                
+                self.delegate?.didAquireToken(token: nil, errror: .noResultFound)
                 self.updateLogging(text: "Could not acquire token: No result returned")
                 return
             }
@@ -159,7 +166,11 @@ extension MicrosoftLoginService {
             self.accessToken = result.accessToken
             self.updateLogging(text: "Access token is \(self.accessToken)")
             self.updateSignOutButton(enabled: true)
-            self.getContentWithToken()
+            
+            self.delegate?.didAquireToken(token: self.accessToken, errror: nil)
+            
+            //call this below method if user detail is to be acuired using GraphAPI
+//            self.getContentWithToken()
         }
     }
     
@@ -204,11 +215,12 @@ extension MicrosoftLoginService {
                 }
                 
                 self.updateLogging(text: "Could not acquire token silently: \(error)")
+                self.delegate?.didAquireToken(token: nil, errror: .couldNotAcquireTokenSilently)
                 return
             }
             
             guard let result = result else {
-                
+                self.delegate?.didAquireToken(token: nil, errror: .noResultFound)
                 self.updateLogging(text: "Could not acquire token: No result returned")
                 return
             }
@@ -216,7 +228,11 @@ extension MicrosoftLoginService {
             self.accessToken = result.accessToken
             self.updateLogging(text: "Refreshed Access token is \(self.accessToken)")
             self.updateSignOutButton(enabled: true)
-            self.getContentWithToken()
+            
+            self.delegate?.didAquireToken(token: self.accessToken, errror: nil)
+            
+            //call this below method if user detail is to be acuired using GraphAPI
+//            self.getContentWithToken()
         }
     }
     
@@ -228,7 +244,6 @@ extension MicrosoftLoginService {
      This will invoke the call to the Microsoft Graph API. It uses the
      built in URLSession to create a connection.
      */
-    
     func getContentWithToken() {
         
         // Specify the Graph API endpoint
@@ -243,15 +258,17 @@ extension MicrosoftLoginService {
             
             if let error = error {
                 self.updateLogging(text: "Couldn't get graph result: \(error)")
+                self.delegate?.didGetUserDetail(user: nil, error:.couldNotGetResult)
                 return
             }
             
             guard let result = try? JSONSerialization.jsonObject(with: data!, options: []) else {
-                
+                self.delegate?.didGetUserDetail(user: nil, error:.couldNotDeserializeResult)
                 self.updateLogging(text: "Couldn't deserialize result JSON")
                 return
             }
             
+            self.delegate?.didGetUserDetail(user: result, error:nil)
             self.updateLogging(text: "Result from Graph: \(result))")
             
             }.resume()

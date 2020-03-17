@@ -41,15 +41,14 @@ enum SignInMode:String {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var signInMode:SignInMode = .google
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        //configure the GIDSignIn shared instance and set the sign-in delegate.
-        GIDSignIn.sharedInstance().clientID = Constants.GoogleSigninClientID
-        GIDSignIn.sharedInstance().delegate = self
+//        configure the GIDSignIn shared instance and set the sign-in delegate.
+        GoogleSiginService.shared
         return true
     }
     
@@ -78,48 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-    //MARK:- GIDSignInDelegate methods
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
-            } else {
-                print("\(error.localizedDescription)")
-            }
-            return
-        }
-        // Perform any operations on signed in user here.
-        let userId = user.userID                  // For client-side use only!
-        let idToken = user.authentication.idToken // Safe to send to the server
-        let fullName = user.profile.name
-        let givenName = user.profile.givenName
-        //        let familyName = user.profile.familyName
-        let email = user.profile.email
         
-        print("""
-            User detail = \(userId),
-            \(idToken),
-            \(fullName),
-            \(givenName),
-            \(email)
-            """)
-        
-        self.launchDetailController()
-    }
-    
-    private func launchDetailController() {
-        //launch the detail
-        guard let detailController = DetailPageViewController.instance() else {return}
-        
-        UIApplication.shared.windows.first?.rootViewController = detailController
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
 }
 
