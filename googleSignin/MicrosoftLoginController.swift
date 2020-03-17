@@ -8,16 +8,23 @@
 
 import Foundation
 import MSAL
-
+/*
+    https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-ios
+ */
 protocol MicrosoftLoginServiceDelegate:class {
     func didAquireToken(token:String, errror:Error?)
 }
 
 class MicrosoftLoginService {
     // Update the below to your client ID you received in the portal. The below is for running the demo only
-    let kClientID = "66855f8a-60cd-445e-a9bb-8cd8eadbd3fa"
-    let kGraphEndpoint = "https://graph.microsoft.com/"
+    let kClientID = "1fd8f856-02c9-4ad0-b146-13c049b33df8"
+    let kRedirectUri = "msauth.ai.cuddle.googleSignin://auth"
     let kAuthority = "https://login.microsoftonline.com/common"
+    let kGraphEndpoint = "https://graph.microsoft.com/"
+    
+//    let kClientID = "66855f8a-60cd-445e-a9bb-8cd8eadbd3fa"
+//    let kGraphEndpoint = "https://graph.microsoft.com/"
+//    let kAuthority = "https://login.microsoftonline.com/common"
     
     let kScopes: [String] = ["user.read"]
     
@@ -28,9 +35,10 @@ class MicrosoftLoginService {
     var parentViewController:UIViewController!
     weak var delegate:MicrosoftLoginServiceDelegate?
     
-    init(withParentViewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
+    init(withParentController viewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
         
         self.delegate = delegate
+        self.parentViewController = viewController
         do {
             try self.initMSAL()
         } catch let error {
@@ -88,7 +96,6 @@ extension MicrosoftLoginService {
     /**
      This will invoke the authorization flow.
      */
-    
     @objc func callGraphAPI(_ sender: UIButton) {
         
         guard let currentAccount = self.currentAccount() else {

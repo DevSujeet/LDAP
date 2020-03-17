@@ -8,8 +8,9 @@
 
 import UIKit
 import GoogleSignIn
+import MSAL
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,MicrosoftLoginServiceDelegate {
     
     @IBOutlet weak var signInButton: GIDSignInButton! {
         didSet {
@@ -17,17 +18,15 @@ class ViewController: UIViewController {
         }
     }
 
-//    @IBAction func didTapSignOut(_ sender: AnyObject) {
-//      GIDSignIn.sharedInstance().signOut()
-//    }
+    @IBOutlet weak var microsoftLoginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         
-        // Automatically sign in the user.
-        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        setUpGoogleSigin()
+        
+        setUpMicrsoftSigin()
     }
 
     
@@ -36,6 +35,34 @@ class ViewController: UIViewController {
         guard let detailController = mainStoryboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {return nil}
         return detailController
     }
-
+    //MARK:- Google
+    func setUpGoogleSigin() {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+               
+               // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+    }
+    
+    //MARK:- MICROSOFT
+    var micrsoftService:MicrosoftLoginService?
+    func setUpMicrsoftSigin() {
+        micrsoftService = MicrosoftLoginService(withParentController:self,delegate:self)
+    }
+    
+    @IBAction func MicrosoftLoginAction(_ sender: Any) {
+        self.micrsoftService?.callGraphAPI(sender as! UIButton)
+    }
+    
+    //MARK:- MicrosoftLoginServiceDelegate
+    func didAquireToken(token:String, errror:Error?) {
+        if let loginError = errror {
+            //error found
+            print("microsoft Error = \(loginError)")
+        } else {
+            //login successful
+            print("token = \(token)")
+            
+        }
+    }
 }
 

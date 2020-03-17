@@ -26,6 +26,14 @@
 				<string>com.googleusercontent.apps.258791022160-f2j4kq6kvvb07hvn2l86avv7po06b7rb</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msauth.ai.cuddle.googleSignin</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -71,5 +79,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+       <string>msauthv2</string>
+       <string>msauthv3</string>
+    </array>
 </dict>
 </plist>
