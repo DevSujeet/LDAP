@@ -25,7 +25,7 @@ DEPENDENCIES:
   - MSAL
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AppAuth
     - GoogleSignIn
     - GTMAppAuth
@@ -39,6 +39,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   MSAL: e4c1cbcf59e04073b427ce9fbfc0346b54abb62e
 
-PODFILE CHECKSUM: 8b3fef3c0763802efa07e53b5440831e37cacbed
+PODFILE CHECKSUM: f92eea6a260163e18fa97b32925e058b645ebbe7
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.1

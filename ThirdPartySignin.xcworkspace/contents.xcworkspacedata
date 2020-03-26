@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/sujeetkumar/Documents/workspace/SwiftPOC/googleSignin/ThirdPartySignin.xcodeproj">
+      location = "group:ThirdPartySignin.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

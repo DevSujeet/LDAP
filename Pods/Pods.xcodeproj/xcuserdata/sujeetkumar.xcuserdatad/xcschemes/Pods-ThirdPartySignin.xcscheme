@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7878FE180E7CF55DC64ACED1DC2A5782"
-               BuildableName = "Pods_googleSignin.framework"
-               BlueprintName = "Pods-googleSignin"
+               BlueprintIdentifier = "BE8BF9AD21CC4B8721E2711CB95172E6"
+               BuildableName = "Pods_ThirdPartySignin.framework"
+               BlueprintName = "Pods-ThirdPartySignin"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8AD7427EF2BFF7F345FF8954 /* Pods_googleSignin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31A58C0C03E98155F79D77C /* Pods_googleSignin.framework */; };
+		A1C805371B98F9A94B42197B /* Pods_ThirdPartySignin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD097AA24796FD84464CED0 /* Pods_ThirdPartySignin.framework */; };
 		BA53E0B624074FB9002B1FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53E0B524074FB9002B1FC1 /* AppDelegate.swift */; };
 		BA53E0B824074FB9002B1FC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53E0B724074FB9002B1FC1 /* SceneDelegate.swift */; };
 		BA53E0BA24074FB9002B1FC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53E0B924074FB9002B1FC1 /* ViewController.swift */; };
@@ -22,7 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2200DF2A6AAB8DE03B84FEE1 /* Pods-ThirdPartySignin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThirdPartySignin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin.debug.xcconfig"; sourceTree = "<group>"; };
 		2A90C9AA4F700772B06FC7DE /* Pods-googleSignin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.debug.xcconfig"; sourceTree = "<group>"; };
+		4CD097AA24796FD84464CED0 /* Pods_ThirdPartySignin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThirdPartySignin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA53E0B224074FB9002B1FC1 /* ThirdPartySignin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThirdPartySignin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA53E0B524074FB9002B1FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA53E0B724074FB9002B1FC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,8 +39,8 @@
 		BA8C34E324207BC300074650 /* MicrosoftLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftLoginService.swift; sourceTree = "<group>"; };
 		BA8C34E72420AEBB00074650 /* GoogleSiginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSiginService.swift; sourceTree = "<group>"; };
 		BA8C34E92420D1F800074650 /* ThirdPartySignin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThirdPartySignin.entitlements; sourceTree = "<group>"; };
-		D31A58C0C03E98155F79D77C /* Pods_googleSignin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_googleSignin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.release.xcconfig"; sourceTree = "<group>"; };
+		ED18BF4AD092F8A42E963409 /* Pods-ThirdPartySignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThirdPartySignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AD7427EF2BFF7F345FF8954 /* Pods_googleSignin.framework in Frameworks */,
+				A1C805371B98F9A94B42197B /* Pods_ThirdPartySignin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +58,7 @@
 		988754BB44B6E4EA33BB32B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D31A58C0C03E98155F79D77C /* Pods_googleSignin.framework */,
+				4CD097AA24796FD84464CED0 /* Pods_ThirdPartySignin.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,6 +122,8 @@
 			children = (
 				2A90C9AA4F700772B06FC7DE /* Pods-googleSignin.debug.xcconfig */,
 				DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */,
+				2200DF2A6AAB8DE03B84FEE1 /* Pods-ThirdPartySignin.debug.xcconfig */,
+				ED18BF4AD092F8A42E963409 /* Pods-ThirdPartySignin.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -201,20 +205,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC1A9A863684B193D302F399 /* [CP] Check Pods Manifest.lock */ = {
@@ -232,7 +231,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-googleSignin-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ThirdPartySignin-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -245,26 +244,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/MSAL/MSAL.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MSAL.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -422,7 +410,7 @@
 		};
 		BA53E0C724074FBA002B1FC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A90C9AA4F700772B06FC7DE /* Pods-googleSignin.debug.xcconfig */;
+			baseConfigurationReference = 2200DF2A6AAB8DE03B84FEE1 /* Pods-ThirdPartySignin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ThirdPartySignin.entitlements;
@@ -442,7 +430,7 @@
 		};
 		BA53E0C824074FBA002B1FC1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */;
+			baseConfigurationReference = ED18BF4AD092F8A42E963409 /* Pods-ThirdPartySignin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ThirdPartySignin.entitlements;

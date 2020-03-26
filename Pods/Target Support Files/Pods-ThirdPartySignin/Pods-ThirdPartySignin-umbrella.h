@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_googleSigninVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_googleSigninVersionString[];
+FOUNDATION_EXPORT double Pods_ThirdPartySigninVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_ThirdPartySigninVersionString[];
 
