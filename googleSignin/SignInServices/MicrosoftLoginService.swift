@@ -10,6 +10,15 @@ import Foundation
 import MSAL
 /*
     https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-ios
+ 
+ // edit info.plist
+ Finally, your app must have an LSApplicationQueriesSchemes entry in your Info.plist alongside the CFBundleURLTypes. The sample comes with this included.
+
+ <key>LSApplicationQueriesSchemes</key>
+ <array>
+    <string>msauthv2</string>
+    <string>msauthv3</string>
+ </array>
  */
 protocol MicrosoftLoginServiceDelegate:class {
     func didAquireToken(token:String?, errror:MicroSoftLoginError?)
@@ -67,18 +76,6 @@ final class MicrosoftLoginService {
             self.updateLogging(text: "Unable to create Application Context \(error)")
         }
     }
-    
-    
-//    init(withParentController viewController:UIViewController, delegate:MicrosoftLoginServiceDelegate) {
-//        
-//        self.delegate = delegate
-//        self.parentViewController = viewController
-//        do {
-//            try self.initMSAL()
-//        } catch let error {
-//            self.updateLogging(text: "Unable to create Application Context \(error)")
-//        }
-//    }
 }
 
 

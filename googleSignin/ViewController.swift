@@ -61,7 +61,9 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
             }
             return
         }
-        
+        //
+        //setup signin mode info
+        SignInMode.setPersistentSignMode(mode:.google)
         // Perform any operations on signed in user here.
         let userId = user?.userID                  // For client-side use only!
         let idToken = user?.authentication.idToken // Safe to send to the server
@@ -90,8 +92,7 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
     }
     
     @IBAction func MicrosoftLoginAction(_ sender: Any) {
-        //setup signin mode info
-        SignInMode.setPersistentSignMode(mode:.microsoft)
+        
         self.micrsoftService?.callGraphAPI(sender as! UIButton)
     }
     
@@ -102,6 +103,9 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
             print("microsoft Error = \(loginError)")
         } else {
             //login successful
+            //setup signin mode info
+            SignInMode.setPersistentSignMode(mode:.microsoft)
+            
             print("token = \(String(describing: token))")
             self.launchDetailController()
             
