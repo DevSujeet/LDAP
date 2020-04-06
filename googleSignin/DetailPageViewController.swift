@@ -23,7 +23,7 @@ class DetailPageViewController: UIViewController {
             GIDSignIn.sharedInstance().signOut()
         case .microsoft:
             let micrsoftService = MicrosoftLoginService.shared
-            micrsoftService.signOut(sender)
+            micrsoftService.signOut()
         }
         
         

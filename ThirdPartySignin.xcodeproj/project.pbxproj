@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		BA6E3C292418BF7E008530BB /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E3C282418BF7E008530BB /* DetailPageViewController.swift */; };
 		BA8C34E424207BC300074650 /* MicrosoftLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C34E324207BC300074650 /* MicrosoftLoginService.swift */; };
 		BA8C34E82420AEBB00074650 /* GoogleSiginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C34E72420AEBB00074650 /* GoogleSiginService.swift */; };
+		BAF97560243AE72C00746D7F /* PingFederateLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9755F243AE72C00746D7F /* PingFederateLoginService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		BA8C34E324207BC300074650 /* MicrosoftLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrosoftLoginService.swift; sourceTree = "<group>"; };
 		BA8C34E72420AEBB00074650 /* GoogleSiginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSiginService.swift; sourceTree = "<group>"; };
 		BA8C34E92420D1F800074650 /* ThirdPartySignin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThirdPartySignin.entitlements; sourceTree = "<group>"; };
+		BAF9755F243AE72C00746D7F /* PingFederateLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingFederateLoginService.swift; sourceTree = "<group>"; };
 		DFE495F86087B8745E153317 /* Pods-googleSignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-googleSignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-googleSignin/Pods-googleSignin.release.xcconfig"; sourceTree = "<group>"; };
 		ED18BF4AD092F8A42E963409 /* Pods-ThirdPartySignin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThirdPartySignin.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThirdPartySignin/Pods-ThirdPartySignin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +115,7 @@
 			children = (
 				BA8C34E324207BC300074650 /* MicrosoftLoginService.swift */,
 				BA8C34E72420AEBB00074650 /* GoogleSiginService.swift */,
+				BAF9755F243AE72C00746D7F /* PingFederateLoginService.swift */,
 			);
 			path = SignInServices;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA6E3C292418BF7E008530BB /* DetailPageViewController.swift in Sources */,
+				BAF97560243AE72C00746D7F /* PingFederateLoginService.swift in Sources */,
 				BA8C34E82420AEBB00074650 /* GoogleSiginService.swift in Sources */,
 				BA53E0BA24074FB9002B1FC1 /* ViewController.swift in Sources */,
 				BA8C34E424207BC300074650 /* MicrosoftLoginService.swift in Sources */,

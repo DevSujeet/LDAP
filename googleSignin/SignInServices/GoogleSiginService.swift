@@ -9,6 +9,10 @@
 import Foundation
 import GoogleSignIn
 
+/*
+ Google
+   https://developers.google.com/identity/sign-in/ios/start-integrating
+*/
 protocol GoogleSiginServiceDelegate : class {
     func didGoogleSignIn(user:GIDGoogleUser?, error:Error?)
 }

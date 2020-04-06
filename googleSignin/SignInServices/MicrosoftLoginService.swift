@@ -304,7 +304,7 @@ extension MicrosoftLoginService {
      This action will invoke the remove account APIs to clear the token cache
      to sign out a user from this application.
      */
-    @objc func signOut(_ sender: UIButton) {
+    @objc func signOut() {
         
         guard let applicationContext = self.applicationContext else { return }
         
