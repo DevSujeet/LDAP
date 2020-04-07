@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import MSAL
+import AppAuth
 /*
  Google
    https://developers.google.com/identity/sign-in/ios/start-integrating
@@ -47,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate
     }
+    
+    var currentAuthorizationFlow:OIDAuthorizationFlowSession?
     
     var signInMode:SignInMode = .google
     
