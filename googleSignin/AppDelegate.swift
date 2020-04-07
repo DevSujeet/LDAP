@@ -19,13 +19,16 @@ enum SignInMode:String {
     static let signInKey = "signInKey"
     case google //default
     case microsoft
+    case pingFederate
     
     static func getPersistentSignMode() -> SignInMode {
         let userDefault =  UserDefaults.standard
+        //1. check if there is value for given key
         guard let rawValue = userDefault.string(forKey: SignInMode.signInKey) else {
             setPersistentSignMode(mode:.google)
             return .google
         }
+        //2. check if there is value is a proper enum
         guard let mode = SignInMode(rawValue: rawValue) else {
             setPersistentSignMode(mode:.google)
             return .google
@@ -48,8 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate
     }
-    
-    var currentAuthorizationFlow:OIDAuthorizationFlowSession?
     
     var signInMode:SignInMode = .google
     
@@ -91,7 +92,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return GIDSignIn.sharedInstance()?.handle(url) ?? true
         case .microsoft:
             return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String)
+        case .pingFederate:
+            let pingFederateService = PingFederateLoginService.shared
+            guard let currentAuthFlow = pingFederateService.currentAuthorizationFlow else { return false}
+            
+            if currentAuthFlow.resumeExternalUserAgentFlow(with: url) {
+                pingFederateService.currentAuthorizationFlow = nil
+                return true
+            }
         }
+        
+        return false
     }
     
     // MARK: UISceneSession Lifecycle

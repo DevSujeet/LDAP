@@ -24,6 +24,9 @@ class DetailPageViewController: UIViewController {
         case .microsoft:
             let micrsoftService = MicrosoftLoginService.shared
             micrsoftService.signOut()
+        case .pingFederate:
+            let pingFederateService = PingFederateLoginService.shared
+            pingFederateService.actionClearAuthenticatedState()
         }
         
         

@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="googleSignin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="ThirdPartySignin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,6 +26,14 @@
                                 <state key="normal" title="Microsoft Login"/>
                                 <connections>
                                     <action selector="MicrosoftLoginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vjg-1O-MPg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38L-Be-2Rq">
+                                <rect key="frame" x="156" y="654" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Ping federate"/>
+                                <connections>
+                                    <action selector="pingFederateLoginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ibN-uA-0pG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -44,7 +52,7 @@
         <!--Detail Page View Controller-->
         <scene sceneID="mwL-gg-To6">
             <objects>
-                <viewController storyboardIdentifier="DetailPageViewController" id="s35-8Q-TUQ" customClass="DetailPageViewController" customModule="googleSignin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailPageViewController" id="s35-8Q-TUQ" customClass="DetailPageViewController" customModule="ThirdPartySignin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zj2-Ia-Akt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

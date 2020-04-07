@@ -39,11 +39,7 @@ class PingFederateConfig {
     /// @brief NSCoding key for the authState property.
     var kAppAuthExampleAuthStateKey:String? = "kAppAuthExampleAuthStateKey" //can use any string as key.
     
-    var kClientSecret:String? = "dUZYKScTNBfY7XicWrysFnh0xKw8ziJ.nLUwvMWvmpotK6xlYgPQJdZjCZQ_taQE"
-    
-}
-
-protocol OIDAuthorizationFlowSession {
+    var kClientSecret:String?// = "dUZYKScTNBfY7XicWrysFnh0xKw8ziJ.nLUwvMWvmpotK6xlYgPQJdZjCZQ_taQE"
     
 }
 
@@ -52,14 +48,28 @@ protocol PingFederateSigninProtocol : class {
 }
 
 class PingFederateLoginService : NSObject {
-    init(withConfig config:PingFederateConfig,
+    
+    private override init() {
+        super.init()
+    }
+    
+    class var shared:PingFederateLoginService {
+        struct singletonWrapper {
+            static let singleton = PingFederateLoginService()
+        }
+        
+        return singletonWrapper.singleton
+    }
+    
+    func setUp(withConfig config:PingFederateConfig,
          presentingController controller:UIViewController,
          delegate:PingFederateSigninProtocol) {
-        super.init()
+        
         self.config = config
         self.delegate = delegate
         self.presentingViewController = controller
     }
+    
     weak var presentingViewController:UIViewController!
     weak var delegate:PingFederateSigninProtocol?
     var config:PingFederateConfig!
@@ -70,7 +80,7 @@ class PingFederateLoginService : NSObject {
     /// @discussion We need to store this in the app delegate as it's that delegate which receives the
     /// incoming URL on UIApplicationDelegate.application:openURL:options:. This property will be
     /// nil, except when an authorization flow is in progress.
-    var currentAuthorizationFlow:OIDAuthorizationFlowSession?
+    var currentAuthorizationFlow:OIDExternalUserAgentSession?
     
     //MARK:- Public method
     
@@ -103,8 +113,10 @@ class PingFederateLoginService : NSObject {
             // by including them in the additionalParameters parameters. Set this to nil if
             // you have no additional parameters. The example below sets the "acr_values" param
             // to urn:acr:form.
-            var additionalParams:[String:String] = [:]
-            additionalParams["acr_values"] = "urn:acr:form"
+            var additionalParams:[String:String]? = [:]
+//            additionalParams!["acr_values"] = "urn:acr:form"
+            
+            additionalParams = nil
             
             // builds authentication request
             let request:OIDAuthorizationRequest = OIDAuthorizationRequest.init(configuration: configuration!,
@@ -123,23 +135,26 @@ class PingFederateLoginService : NSObject {
             // performs authentication request
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             self.logMessage(message: "Initiating authorization request with scope: \(request.scope)")
-
+            
             guard let authFlow = OIDAuthState.authState(byPresenting: request,
-                                                                          presenting: self.presentingViewController,
-                                                                          callback: { (oidAuthState, error) in
-                                                                            if let authState = oidAuthState {
-                                                                                self.setAuthState(authState: authState)
-                                                                                self.logMessage(message: "Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken)")
-                                                                            } else {
-                                                                                self.logMessage(message: "Authorization error: \(error?.localizedDescription)")
-                                                                                self.setAuthState(authState: nil)
-                                                                            }
-            }) as? OIDAuthorizationFlowSession else {
+                                                        presenting: self.presentingViewController,
+                                                        callback: { (oidAuthState, error) in
+                                                            if let authState = oidAuthState {
+                                                                self.setAuthState(authState: authState)
+                                                                self.logMessage(message: "Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken)")
+                                                                
+                                                                self.actionCallUserInfo()
+                                                                
+                                                            } else {
+                                                                self.logMessage(message: "Authorization error: \(error?.localizedDescription)")
+                                                                self.setAuthState(authState: nil)
+                                                            }
+            }) as? OIDExternalUserAgentSession else {
                 print("failed ")
                 return
             }
             
-            appDelegate.currentAuthorizationFlow = authFlow
+            self.currentAuthorizationFlow = authFlow
         }
     }
     
@@ -158,7 +173,7 @@ class PingFederateLoginService : NSObject {
         
         self.logMessage(message: "Performing userinfo request")
         
-//        self.authState?.performAction(freshTokens: <#T##OIDAuthStateAction##OIDAuthStateAction##(String?, String?, Error?) -> Void#>, additionalRefreshParameters: <#T##[String : String]?#>, dispatchQueue: <#T##DispatchQueue#>)
+        //        self.authState?.performAction(freshTokens: <#T##OIDAuthStateAction##OIDAuthStateAction##(String?, String?, Error?) -> Void#>, additionalRefreshParameters: <#T##[String : String]?#>, dispatchQueue: <#T##DispatchQueue#>)
         self.authState?.performAction(freshTokens: { (accessToken, idToken, error) in
             if error != nil {
                 self.logMessage(message: "Error fetching fresh tokens: \(error!.localizedDescription)");
@@ -205,12 +220,12 @@ class PingFederateLoginService : NSObject {
                                                     //
                                                     
                                                     if (httpResponse.statusCode != 200) {
-                                                     // server replied with an error
+                                                        // server replied with an error
                                                         let responseText = String(data: data!, encoding: String.Encoding.utf8)
                                                         
                                                         if (httpResponse.statusCode == 401) {
-                                                        // "401 Unauthorized" generally indicates there is an issue with the authorization
-                                                        // grant. Puts OIDAuthState into an error state.
+                                                            // "401 Unauthorized" generally indicates there is an issue with the authorization
+                                                            // grant. Puts OIDAuthState into an error state.
                                                             let oAuthError = OIDErrorUtilities.resourceServerAuthorizationError(withCode: 0,
                                                                                                                                 errorResponse: jsonDictionaryOrArray,
                                                                                                                                 underlyingError: error)
@@ -234,7 +249,7 @@ class PingFederateLoginService : NSObject {
             
         }, additionalRefreshParameters: nil)
         
-       
+        
         
     }
     /// cay be used to logout the user from device.
@@ -251,6 +266,10 @@ class PingFederateLoginService : NSObject {
     private func saveState() {
         let key = self.config.kAppAuthExampleAuthStateKey!
         let userDefault = UserDefaults.standard
+        guard let currentAuthState = self.authState else {
+            print("trying to save nil authState, can lead to crash")
+            return
+        }
         do {
             let archivedAuthStateData = try NSKeyedArchiver.archivedData(withRootObject: self.authState!, requiringSecureCoding: true)
             userDefault.set(archivedAuthStateData, forKey: key)
@@ -260,10 +279,10 @@ class PingFederateLoginService : NSObject {
         }
         
         
-//        NSData *archivedAuthState = [ NSKeyedArchiver archivedDataWithRootObject:_authState];
-//        [[NSUserDefaults standardUserDefaults] setObject:archivedAuthState
-//                                                  forKey:kAppAuthExampleAuthStateKey];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+        //        NSData *archivedAuthState = [ NSKeyedArchiver archivedDataWithRootObject:_authState];
+        //        [[NSUserDefaults standardUserDefaults] setObject:archivedAuthState
+        //                                                  forKey:kAppAuthExampleAuthStateKey];
+        //        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     /// loads OIDAuthState from NSUSerDefaults

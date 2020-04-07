@@ -12,7 +12,7 @@ import MSAL
 
 
 /// See this as a loginViewController.
-class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSiginServiceDelegate {
+class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSiginServiceDelegate,PingFederateSigninProtocol {
     
     
     
@@ -31,6 +31,9 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
         setUpGoogleSigin()
         
         setUpMicrsoftSigin()
+        
+        
+        setUpPingFederateSignIn()
     }
 
     
@@ -83,6 +86,26 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
         self.launchDetailController()
     }
     
+    //MARK::- PingFederate
+    var pingFederateService:PingFederateLoginService?
+    
+    
+    @IBAction func pingFederateLoginAction(_ sender: Any) {
+        self.pingFederateService?.actionSignIn()
+    }
+    
+    func setUpPingFederateSignIn() {
+        pingFederateService = PingFederateLoginService.shared
+        pingFederateService?.setUp(withConfig: PingFederateConfig(),
+                                   presentingController: self,
+                                   delegate: self)
+    }
+    
+    func didSignin(withToken token:String, error:Error?) {
+        
+    }
+    
+    
     //MARK:- MICROSOFT
     var micrsoftService:MicrosoftLoginService?
     
@@ -95,6 +118,8 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
         
         self.micrsoftService?.callGraphAPI(sender as! UIButton)
     }
+    
+
     
     //MARK:- MicrosoftLoginServiceDelegate
     func didAquireToken(token:String?, errror:MicroSoftLoginError?) {
