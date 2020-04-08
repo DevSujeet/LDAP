@@ -22,6 +22,20 @@ import AppAuth
  CLIENT ID    fcc46ce6-149c-4774-b013-9c97a97fe589
  CLIENT SECRET    dUZYKScTNBfY7XicWrysFnh0xKw8ziJ.nLUwvMWvmpotK6xlYgPQJdZjCZQ_taQE
  */
+
+enum PingFederateLoginError:Error {
+    case couldNotAcquireToken
+    case userInfoEndpointNotFound
+    case lastAccessTokenNotFound
+    case errorFetchingFreshTokens
+    
+    case nonHTTPResponseError
+    case couldNotDeserializeResult
+    case authorizationError
+    case otherNetworkError
+    
+
+}
 class PingFederateConfig {
     /// @brief The OIDC issuer from which the configuration will be discovered.
     /// @discussion This is your base PingFederate server URL.
@@ -44,7 +58,8 @@ class PingFederateConfig {
 }
 
 protocol PingFederateSigninProtocol : class {
-    func didSignin(withToken token:String, error:Error?)
+    func didSignin(withToken token:String?, error:PingFederateLoginError?)
+    func didGetUserDetail(user: Any?, error: PingFederateLoginError?)
 }
 
 class PingFederateLoginService : NSObject {
@@ -70,12 +85,14 @@ class PingFederateLoginService : NSObject {
         self.presentingViewController = controller
     }
     
-    weak var presentingViewController:UIViewController!
-    weak var delegate:PingFederateSigninProtocol?
-    var config:PingFederateConfig!
+    private weak var presentingViewController:UIViewController!
+    private weak var delegate:PingFederateSigninProtocol?
+    var accessToken:String?
+    
+    private var config:PingFederateConfig!
     ///The authorization state. This is the AppAuth object that you should keep around and
     ///serialize to disk.
-    var authState:OIDAuthState?
+     private var authState:OIDAuthState?
     /// The authorization flow session which receives the return URL from SFSafariViewController.
     /// @discussion We need to store this in the app delegate as it's that delegate which receives the
     /// incoming URL on UIApplicationDelegate.application:openURL:options:. This property will be
@@ -133,49 +150,50 @@ class PingFederateLoginService : NSObject {
                                                                                additionalParameters: additionalParams)
             
             // performs authentication request
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
             self.logMessage(message: "Initiating authorization request with scope: \(request.scope)")
             
-            guard let authFlow = OIDAuthState.authState(byPresenting: request,
+            let authFlow = OIDAuthState.authState(byPresenting: request,
                                                         presenting: self.presentingViewController,
                                                         callback: { (oidAuthState, error) in
                                                             if let authState = oidAuthState {
                                                                 self.setAuthState(authState: authState)
-                                                                self.logMessage(message: "Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken)")
-                                                                
+                                                                self.accessToken = authState.lastTokenResponse?.accessToken
+                                                                self.logMessage(message: "Got authorization tokens. Access token: \(self.accessToken)")
+                                                                self.delegate?.didSignin(withToken: self.accessToken!, error: nil)
                                                                 self.actionCallUserInfo()
                                                                 
                                                             } else {
                                                                 self.logMessage(message: "Authorization error: \(error?.localizedDescription)")
+                                                                self.delegate?.didSignin(withToken: nil, error: .couldNotAcquireToken)
                                                                 self.setAuthState(authState: nil)
                                                             }
-            }) as? OIDExternalUserAgentSession else {
-                print("failed ")
-                return
-            }
+            })
             
             self.currentAuthorizationFlow = authFlow
         }
     }
     
     
-    public func actionCallUserInfo() {
+    private  func actionCallUserInfo() {
         guard let userinfoEndpoint =
             (self.authState?.lastAuthorizationResponse.request.configuration.discoveryDocument?.userinfoEndpoint) else {
+                self.delegate?.didGetUserDetail(user: nil, error: .userInfoEndpointNotFound)
                 self.logMessage(message: "Userinfo endpoint not declared in discovery document")
                 return
         }
         
         guard let currentAccessToken = self.authState?.lastTokenResponse?.accessToken else {
+            self.delegate?.didGetUserDetail(user: nil, error: .lastAccessTokenNotFound)
             self.logMessage(message: "accessToken not found while getting userInfo.")
             return
         }
         
         self.logMessage(message: "Performing userinfo request")
-        
-        //        self.authState?.performAction(freshTokens: <#T##OIDAuthStateAction##OIDAuthStateAction##(String?, String?, Error?) -> Void#>, additionalRefreshParameters: <#T##[String : String]?#>, dispatchQueue: <#T##DispatchQueue#>)
+
         self.authState?.performAction(freshTokens: { (accessToken, idToken, error) in
             if error != nil {
+                self.delegate?.didGetUserDetail(user: nil, error: .errorFetchingFreshTokens)
                 self.logMessage(message: "Error fetching fresh tokens: \(error!.localizedDescription)");
                 return;
             }
@@ -204,6 +222,7 @@ class PingFederateLoginService : NSObject {
                                                 
                                                 DispatchQueue.main.async {
                                                     guard let httpResponse = response as? HTTPURLResponse else {
+                                                        self.delegate?.didGetUserDetail(user: nil, error: .nonHTTPResponseError)
                                                         self.logMessage(message:"Non-HTTP response \(error)")
                                                         return;
                                                     }
@@ -215,6 +234,7 @@ class PingFederateLoginService : NSObject {
                                                             jsonDictionaryOrArray = json
                                                         }
                                                     } catch let error as NSError {
+                                                        self.delegate?.didGetUserDetail(user: nil, error: .couldNotDeserializeResult)
                                                         self.logMessage(message:"Failed to load: \(error.localizedDescription)")
                                                     }
                                                     //
@@ -232,14 +252,17 @@ class PingFederateLoginService : NSObject {
                                                             
                                                             self.authState?.update(withAuthorizationError: oAuthError)
                                                             
+                                                            self.delegate?.didGetUserDetail(user: nil, error: .authorizationError)
                                                             self.logMessage(message: "Authorization Error \(oAuthError). \n Response \(responseText)")
                                                         } else {
+                                                             self.delegate?.didGetUserDetail(user: nil, error: .otherNetworkError)
                                                             self.logMessage(message: "HTTP: \(httpResponse.statusCode). \n Response \(responseText)")
                                                         }
                                                         return
                                                     }
                                                     
                                                     //// success response
+                                                    self.delegate?.didGetUserDetail(user: jsonDictionaryOrArray, error: nil)
                                                     self.logMessage(message: "SUCCESS with USERINfo: \(jsonDictionaryOrArray).")
                                                 }
                                                 
@@ -254,7 +277,9 @@ class PingFederateLoginService : NSObject {
     }
     /// cay be used to logout the user from device.
     public func actionClearAuthenticatedState() {
+        self.authState?.setNeedsTokenRefresh()
         self.setAuthState(authState: nil)
+        
     }
     
     //MARK:- Private methods
@@ -330,7 +355,7 @@ extension PingFederateLoginService:OIDAuthStateChangeDelegate,OIDAuthStateErrorD
     }
     
     func authState(_ state: OIDAuthState, didEncounterAuthorizationError error: Error) {
-        self.logMessage(message: error.localizedDescription)
+        self.logMessage(message: "didEncounterAuthorizationError \(error.localizedDescription)")
     }
     
     

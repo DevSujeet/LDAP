@@ -14,8 +14,6 @@ import MSAL
 /// See this as a loginViewController.
 class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSiginServiceDelegate,PingFederateSigninProtocol {
     
-    
-    
     @IBOutlet weak var signInButton: GIDSignInButton! {
         didSet {
 //            signInButton.set
@@ -101,8 +99,24 @@ class ViewController: UIViewController,MicrosoftLoginServiceDelegate,GoogleSigin
                                    delegate: self)
     }
     
-    func didSignin(withToken token:String, error:Error?) {
+    func didSignin(withToken token: String?, error: PingFederateLoginError?) {
         
+    }
+    
+    func didGetUserDetail(user: Any?, error: PingFederateLoginError?) {
+        guard let userDetail = user else {
+            print("Got error \(error)")
+            return
+        }
+        
+        guard let userInfo = userDetail as? [String:Any] else {return}
+        
+        print("UserInfo Email = \(userInfo["email"])")
+        //setup signin mode info
+        SignInMode.setPersistentSignMode(mode:.pingFederate)
+        let token = pingFederateService?.accessToken ?? ""
+        print("token = \(String(describing: token))")
+        self.launchDetailController()
     }
     
     
